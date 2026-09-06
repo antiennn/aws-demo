@@ -95,3 +95,10 @@ jobs:
 
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REPOSITORY:latest
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster django-shop-cluster \
+            --service django-shop-service \
+            --force-new-deployment
